@@ -5,7 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@MapperScan("com.example.booking.pojo")
+@MapperScan("com.example.booking.mapper")
 public class BookingApplication {
 
     public static void main(String[] args) {

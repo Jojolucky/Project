@@ -2,6 +2,8 @@ package com.example.booking.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.example.booking.pojo.User;
+import com.example.booking.vo.LoginVo;
+import com.example.booking.vo.RespBean;
 
 /**
  * <p>
@@ -13,4 +15,5 @@ import com.example.booking.pojo.User;
  */
 public interface IUserService extends IService<User> {
 
+    RespBean login(LoginVo loginVo);
 }

@@ -19,4 +19,13 @@
         user_id, nickName, pass_word, salt, head, register_date, last_login, login_count
     </sql>
 
+    <!-- Add the selectById statement -->
+<!--    <select id="selectById" resultMap="BaseResultMap">-->
+<!--        SELECT-->
+<!--        <include refid="Base_Column_List" />-->
+<!--        FROM t_user-->
+<!--        WHERE user_id = #{userId}-->
+<!--    </select>-->
+
+
 </mapper>
