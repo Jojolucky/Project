@@ -32,22 +32,25 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     public RespBean login(LoginVo loginVo) {
         String mobile = loginVo.getMobile();
         String password = loginVo.getPassword();
-        // 判断手机号，密码是否为空
-        if (StringUtils.isEmpty(mobile) || StringUtils.isEmpty(password)) {
-            return RespBean.error(RespBeanEnum.LOGIN_ERROR);
-        }
-        // 判断是否为有效的手机号码
-        if (!ValidatorUtil.isMobile(mobile)) {
-            return RespBean.error(RespBeanEnum.MOBILE_ERROR);
-        }
+        // 过多的参数校验， 简化代码？？？ --》 使用validation的组件, jsr303
+//        // 判断手机号，密码是否为空
+//        if (StringUtils.isEmpty(mobile) || StringUtils.isEmpty(password)) {
+//            return RespBean.error(RespBeanEnum.LOGIN_ERROR);
+//        }
+//        // 判断是否为有效的手机号码
+//        if (!ValidatorUtil.isMobile(mobile)) {
+//            return RespBean.error(RespBeanEnum.MOBILE_ERROR);
+//        }
         //根据手机号获取用户
         User user = userMapper.selectById(mobile);
-//        System.out.println(user.getUserId());
         if (null == user) {
+            System.out.println("null");
             return RespBean.error(RespBeanEnum.LOGIN_ERROR);
         }
         //校验密码
         if (!MD5Util.formPassToDBPass(password, user.getSalt()).equals(user.getPassWord())) {
+            System.out.println("mimacuowu");
+
             return RespBean.error(RespBeanEnum.LOGIN_ERROR);
         }
         return RespBean.success();
