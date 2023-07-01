@@ -27,7 +27,6 @@ public class RespBean {
         return new RespBean(RespBeanEnum.SUCCESS.getCode(),
                 RespBeanEnum.SUCCESS.getMessage(), null);
     }
-
     /**
      * 成功返回结果 *
      * @param obj */
@@ -35,8 +34,6 @@ public class RespBean {
         return new RespBean(RespBeanEnum.SUCCESS.getCode(),
                 RespBeanEnum.SUCCESS.getMessage(), obj);
     }
-
-
     /**
      * 失败返回结果 *
      * @param respBeanEnum

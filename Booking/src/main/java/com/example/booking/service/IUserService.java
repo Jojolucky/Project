@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.example.booking.pojo.User;
 import com.example.booking.vo.LoginVo;
 import com.example.booking.vo.RespBean;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 /**
  * <p>
@@ -15,5 +17,5 @@ import com.example.booking.vo.RespBean;
  */
 public interface IUserService extends IService<User> {
 
-    RespBean login(LoginVo loginVo);
+    RespBean login(LoginVo loginVo, HttpServletRequest request, HttpServletResponse response);
 }

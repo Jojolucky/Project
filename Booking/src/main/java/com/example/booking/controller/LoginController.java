@@ -3,6 +3,8 @@ package com.example.booking.controller;
 import com.example.booking.service.IUserService;
 import com.example.booking.vo.LoginVo;
 import com.example.booking.vo.RespBean;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,9 +38,9 @@ public class LoginController {
      * @return */
     @RequestMapping("/doLogin")
     @ResponseBody
-    public RespBean doLogin(@Valid LoginVo loginVo) {
-        log.info(loginVo.toString());
-        return userService.login(loginVo);
+    public RespBean doLogin(@Valid LoginVo loginVo, HttpServletRequest request, HttpServletResponse response) {
+//        log.info(loginVo.toString());
+        return userService.login(loginVo, request, response);
     }
 }
 
