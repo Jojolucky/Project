@@ -18,7 +18,7 @@ app.use(cors());
 const CONNECTION_URL =
   "mongodb+srv://memorise:memorise1234@cluster0.aock4mv.mongodb.net/?retryWrites=true&w=majority";
 const PORT = process.env.PORT || 3000;
-
+// connect mongodb
 mongoose
   .connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
@@ -26,4 +26,4 @@ mongoose
   })
   .catch((error) => console.log(error.message));
 
-// mongoose.set("useFindAndModify", false);
+// mongoose.set("useFindAndModify", false); // there would be no any warning
