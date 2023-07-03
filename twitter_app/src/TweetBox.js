@@ -1,23 +1,41 @@
 import React, { useState } from "react";
 import "./TweetBox.css";
 import { Avatar, Button } from "@material-ui/core";
+import { collection, addDoc } from "firebase/firestore";
+
 import db from "./firebase";
 
 function TweetBox() {
   const [tweetMessage, setTweetMessage] = useState("");
   const [tweetImage, setTweetImage] = useState("");
 
+  // const sendTweet = (e) => {
+  //   e.preventDefault();
+
+  //   db.collection("posts").add({
+  //     displayName: "Rafeh Qazi",
+  //     username: "cleverqazi",
+  //     verified: true,
+  //     text: tweetMessage,
+  //     image: tweetImage,
+  //     avatar:
+  //       "https://kajabi-storefronts-production.global.ssl.fastly.net/kajabi-storefronts-production/themes/284832/settings_images/rLlCifhXRJiT0RoN2FjK_Logo_roundbackground_black.png",
+  //   });
+
+  //   setTweetMessage("");
+  //   setTweetImage("");
+  // };
   const sendTweet = (e) => {
     e.preventDefault();
 
-    db.collection("posts").add({
-      displayName: "Rafeh Qazi",
-      username: "cleverqazi",
+    addDoc(collection(db, "posts"), {
+      displayName: "Jojo",
+      username: "Jojo He",
       verified: true,
       text: tweetMessage,
       image: tweetImage,
       avatar:
-        "https://kajabi-storefronts-production.global.ssl.fastly.net/kajabi-storefronts-production/themes/284832/settings_images/rLlCifhXRJiT0RoN2FjK_Logo_roundbackground_black.png",
+        "https://pbs.twimg.com/profile_images/1554609190848663555/x91MM9qJ_400x400.jpg",
     });
 
     setTweetMessage("");
@@ -28,7 +46,7 @@ function TweetBox() {
     <div className="tweetBox">
       <form>
         <div className="tweetBox__input">
-          <Avatar src="https://kajabi-storefronts-production.global.ssl.fastly.net/kajabi-storefronts-production/themes/284832/settings_images/rLlCifhXRJiT0RoN2FjK_Logo_roundbackground_black.png" />
+          <Avatar src="https://pbs.twimg.com/profile_images/1554609190848663555/x91MM9qJ_400x400.jpg" />
           <input
             onChange={(e) => setTweetMessage(e.target.value)}
             value={tweetMessage}
