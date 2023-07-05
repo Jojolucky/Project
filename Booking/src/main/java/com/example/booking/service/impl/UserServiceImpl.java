@@ -1,5 +1,6 @@
 package com.example.booking.service.impl;
 
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.booking.exception.GlobalException;
 import com.example.booking.mapper.UserMapper;
@@ -15,6 +16,7 @@ import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 /**
@@ -30,6 +32,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     @Resource
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     @Override
     public RespBean login(LoginVo loginVo, HttpServletRequest request, HttpServletResponse response) {
@@ -59,8 +63,23 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
         //生成cookie
         String ticket = UUIDUtil.uuid();
+        // 写入redis
+        redisTemplate.opsForValue().set("user:" + ticket, user);
         request.getSession().setAttribute(ticket, user);
         CookieUtil.setCookie(request, response, "userTicket", ticket);
         return RespBean.success(ticket);
     }
+
+//    @Override
+//    public User getByUserCookie(String userTicket, HttpServletRequest request, HttpServletResponse response) {
+//        if (StringUtils.isEmpty(userTicket)) {
+//            return null;
+//        }
+//        User user = (User)redisTemplate.opsForValue().get("user:" + userTicket);
+//        if(user != null){
+//            CookieUtil.setCookie(request, response, "userTicker", userTicket);
+//        }
+//        return user;
+//
+//    }
 }

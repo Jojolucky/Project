@@ -75,11 +75,14 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-pool2</artifactId>
-        </dependency> <!-- spring-session 依赖 -->
-        <dependency>
-            <groupId>org.springframework.session</groupId>
-            <artifactId>spring-session-data-redis</artifactId>
         </dependency>
+<!--        第一种方法是redis在session中提取用户信息，从而再实现分布式-->
+<!--        &lt;!&ndash; spring-session 依赖 &ndash;&gt;-->
+<!--        第二种方法，直接将用户信息存入redis实现分布-->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.session</groupId>-->
+<!--            <artifactId>spring-session-data-redis</artifactId>-->
+<!--        </dependency>-->
 
     </dependencies>
 

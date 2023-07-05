@@ -27,7 +27,7 @@ public class LoginController {
     /**
      * 跳转登录页 *
      *
-     * @return
+     *
      */
     @RequestMapping("/toLogin")
     public String toLogin(){
@@ -35,11 +35,11 @@ public class LoginController {
     }
     /**
      * 登录
-     * @return */
+     *  */
     @RequestMapping("/doLogin")
     @ResponseBody
     public RespBean doLogin(@Valid LoginVo loginVo, HttpServletRequest request, HttpServletResponse response) {
-//        log.info(loginVo.toString());
+        log.info(loginVo.toString());
         return userService.login(loginVo, request, response);
     }
 }
