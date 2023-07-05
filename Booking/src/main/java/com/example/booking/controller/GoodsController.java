@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class GoodsController {
     /*** 跳转登录页 ** @return */
     @RequestMapping("/toList")
-    public String toLogin(HttpSession session, Model model, @CookieValue("userTicket") String ticket) {
+    public String toList(HttpSession session, Model model, @CookieValue("userTicket") String ticket) {
         if (StringUtils.isEmpty(ticket)) {
             return "login";
         }
