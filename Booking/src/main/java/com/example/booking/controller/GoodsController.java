@@ -1,6 +1,7 @@
 package com.example.booking.controller;
 
 import com.example.booking.pojo.User;
+import com.example.booking.service.IGoodsService;
 import com.example.booking.service.IUserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -21,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class GoodsController {
     @Autowired
     private IUserService userService;
+    @Autowired
+    private IGoodsService goodsService;
 
     /**
      * 跳转登录页 *
@@ -38,7 +41,11 @@ public class GoodsController {
 //        if (null == user) {
 //            return "login";
 //        }
+        // put user into the page
         model.addAttribute("user", user);
+        // put goods into the page
+        model.addAttribute("goodsList", goodsService.findGoodsVo());
+
         return "goodsList";
     }
 }

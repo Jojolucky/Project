@@ -1,16 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+         https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    <!-- 项目的唯一ID，一个groupId下面可能多个项目，就是靠artifactId来区分的 -->
+    <groupId>com.example</groupId>
+    <artifactId>Booking</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>3.1.0</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <relativePath/>
+        <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.example</groupId>
-    <artifactId>Booking</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+
     <name>Booking</name>
     <description>Booking</description>
     <properties>
@@ -76,13 +82,13 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-pool2</artifactId>
         </dependency>
-<!--        第一种方法是redis在session中提取用户信息，从而再实现分布式-->
-<!--        &lt;!&ndash; spring-session 依赖 &ndash;&gt;-->
-<!--        第二种方法，直接将用户信息存入redis实现分布-->
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.session</groupId>-->
-<!--            <artifactId>spring-session-data-redis</artifactId>-->
-<!--        </dependency>-->
+        <!--        第一种方法是redis在session中提取用户信息，从而再实现分布式-->
+        <!--        &lt;!&ndash; spring-session 依赖 &ndash;&gt;-->
+        <!--        第二种方法，直接将用户信息存入redis实现分布-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.springframework.session</groupId>-->
+        <!--            <artifactId>spring-session-data-redis</artifactId>-->
+        <!--        </dependency>-->
 
     </dependencies>
 
