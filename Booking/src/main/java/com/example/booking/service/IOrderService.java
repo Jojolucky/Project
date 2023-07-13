@@ -2,6 +2,8 @@ package com.example.booking.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.example.booking.pojo.Order;
+import com.example.booking.pojo.User;
+import com.example.booking.vo.GoodsVo;
 
 /**
  * <p>
@@ -13,4 +15,5 @@ import com.example.booking.pojo.Order;
  */
 public interface IOrderService extends IService<Order> {
 
+    Order seckill(User user, GoodsVo goods);
 }

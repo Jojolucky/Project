@@ -44,11 +44,12 @@
                 <span th:if="${secKillStatus eq 1}">秒杀进行中</span>
                 <span th:if="${secKillStatuseq eq 2}">秒杀已结束</span>
             </td>
+
             <td>
-                <form id="seckillForm" method="post"
-                      action="/seckill/doSeckill">
+                <form id="seckillForm" method="post" action="/seckill/doSeckill">
+                    <input type="hidden" name="goodsId" th:value="${goods.id}"/>
                     <button class="btn btn-primary btn-block" type="submit" id="buyButton">立即秒杀</button>
-                    <input type="hidden" name="goodsId" th:value="${goods.id}"/></form>
+                </form>
             </td>
         </tr>
         <tr>
@@ -76,7 +77,7 @@
         var timeout;
 //秒杀还没开始，倒计时
         if (remainSeconds > 0) {
-            $("#buyButton").attr("disabled", true);
+            $("#buyButton").attr("disabled", true); // 还没开始，秒杀按钮灰色，无法使用
             timeout = setTimeout(function () {
                 $("#countDown").text(remainSeconds - 1);
                 $("#remainSeconds").val(remainSeconds - 1);
@@ -84,14 +85,14 @@
             }, 1000);
 //秒杀进行中
         } else if (remainSeconds == 0) {
-            $("#buyButton").attr("disabled", false);
+            $("#buyButton").attr("disabled", false); // 开始，秒杀按钮蓝色，可以使用
             if (timeout) {
                 clearTimeout(timeout);
             }
             $("#seckillTip").html("秒杀进行中");
 //秒杀已经结束
         } else {
-            $("#buyButton").attr("disabled", true);
+            $("#buyButton").attr("disabled", true); // 还没开始，秒杀按钮灰色，无法使用
             $("#seckillTip").html("秒杀已经结束");
         }
     }
