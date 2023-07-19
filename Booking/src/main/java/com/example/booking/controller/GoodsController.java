@@ -3,7 +3,9 @@ package com.example.booking.controller;
 import com.example.booking.pojo.User;
 import com.example.booking.service.IGoodsService;
 import com.example.booking.service.IUserService;
+import com.example.booking.vo.DetailVo;
 import com.example.booking.vo.GoodsVo;
+import com.example.booking.vo.RespBean;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 //import jakarta.servlet.http.HttpSession;
@@ -101,11 +103,12 @@ public class GoodsController {
     @RequestMapping("/toDetail/{goodsId}")
 //    @RequestMapping(value = "/toDetail/{goodsId}" , produces = "text/html;charset=utf-8")
 //    @ResponseBody
-    public String toDetail(Model model, User user, @PathVariable Long goodsId) {
+    public String toDetail2(Model model, User user, @PathVariable Long goodsId) {
 
 //        ValueOperations valueOperations = redisTemplate .opsForValue();
 ////Redis中获取页面，如果不为空，直接返回页面
-//        String html = (String) valueOperations .get("goodsDetail:" + goodsId); if (!StringUtils .isEmpty(html)) {
+//        String html = (String) valueOperations .get("goodsDetail:" + goodsId);
+//        if (!StringUtils .isEmpty(html)) {
 //            return html;
 //        }
 
@@ -143,6 +146,41 @@ public class GoodsController {
 //            valueOperations.set("goodsDetail:" + goodsId, html, 60, TimeUnit.SECONDS);
 //        }
 //        return html;
+    }
+    /**
+     * 跳转商品详情页
+     */
+
+
+    @RequestMapping("/detail/{goodsId}")
+    @ResponseBody
+    public RespBean toDetail(Model model, User user, @PathVariable Long goodsId) {
+        GoodsVo goodsVo = goodsService.findGoodsVoByGoodsId(goodsId);
+        Date startDate = goodsVo.getStartDate();
+        Date endDate = goodsVo.getEndDate();
+        Date nowDate = new Date();
+//秒杀状态
+        int secKillStatus = 0;
+//剩余开始时间
+        int remainSeconds = 0;
+//秒杀还未开始
+        if (nowDate.before(startDate)) {
+            remainSeconds = (int) ((startDate.getTime() - nowDate.getTime()) / 1000);
+// 秒杀已结束
+        } else if (nowDate.after(endDate)) {
+            secKillStatus = 2;
+            remainSeconds = -1;
+// 秒杀中
+        } else {
+            secKillStatus = 1;
+            remainSeconds = 0;
+        }
+        DetailVo detailVo=new DetailVo();
+        detailVo.setGoodsVo(goodsVo);
+        detailVo.setUser(user);
+        detailVo.setRemainSeconds(remainSeconds);
+        detailVo.setSecKillStatus(secKillStatus);
+        return RespBean.success(detailVo);
     }
 }
 
