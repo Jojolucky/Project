@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/login")
 @Slf4j
 public class LoginController {
-
     @Autowired
     private IUserService userService;
 

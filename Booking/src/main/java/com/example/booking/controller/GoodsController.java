@@ -52,10 +52,6 @@ public class GoodsController {
     private RedisTemplate redisTemplate;
     @Autowired
     private ThymeleafViewResolver thymeleafViewResolver;
-    @Autowired
-    private TemplateEngine templateEngine;
-    @Autowired
-    private ResourceLoader resourceLoader;
 
 
     /**
@@ -151,7 +147,7 @@ public class GoodsController {
      * 跳转商品详情页
      */
 
-
+//以下为商品列表静态化
     @RequestMapping("/detail/{goodsId}")
     @ResponseBody
     public RespBean toDetail(Model model, User user, @PathVariable Long goodsId) {
@@ -183,4 +179,3 @@ public class GoodsController {
         return RespBean.success(detailVo);
     }
 }
-
