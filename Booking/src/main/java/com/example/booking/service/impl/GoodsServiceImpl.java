@@ -5,6 +5,7 @@ import com.example.booking.mapper.GoodsMapper;
 import com.example.booking.pojo.Goods;
 import com.example.booking.service.IGoodsService;
 import com.example.booking.vo.GoodsVo;
+import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,7 @@ import java.util.List;
  */
 @Service
 public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods> implements IGoodsService {
+    @Resource
     @Autowired
     private GoodsMapper goodsMapper;
 //获取商品列表
