@@ -1,6 +1,7 @@
 package com.example.booking.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.example.booking.pojo.Order;
 import com.example.booking.pojo.SeckillOrder;
 import com.example.booking.pojo.User;
@@ -11,6 +12,7 @@ import com.example.booking.vo.GoodsVo;
 import com.example.booking.vo.RespBean;
 import com.example.booking.vo.RespBeanEnum;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +29,8 @@ public class SeckillController {
     private ISeckillOrderService seckillOrderService;
     @Autowired
     private IOrderService orderService;
+    @Autowired
+    private RedisTemplate redisTemplate ;
 
     @RequestMapping("/doSeckill2")
     public String doSeckill2(Model model, User user, Long goodsId) {
@@ -67,12 +71,20 @@ public class SeckillController {
             return RespBean.error(RespBeanEnum.EMPTY_STOCK);
         }
 //判断是否重复抢购
-        SeckillOrder seckillOrder = seckillOrderService.getOne(new QueryWrapper<SeckillOrder>()
-                .eq("user_id", user.getUserId()).eq("goods_id", goodsId));
+//        SeckillOrder seckillOrder = seckillOrderService.getOne(new QueryWrapper<SeckillOrder>()
+//                .eq("user_id", user.getUserId()).eq("goods_id", goodsId));
+//        if (seckillOrder != null) {
+//            return RespBean.error(RespBeanEnum.REPEATE_ERROR);
+//        }
+//        Order order = orderService.seckill(user, goods);
+//        return RespBean.success(order);
+
+        SeckillOrder seckillOrder = (SeckillOrder) redisTemplate .opsForValue().get("order:" + user.getUserId() + ":" + goodsId);
         if (seckillOrder != null) {
-            return RespBean.error(RespBeanEnum.REPEATE_ERROR);
+            return RespBean.error(RespBeanEnum .REPEATE_ERROR);
         }
-        Order order = orderService.seckill(user, goods);
+        Order order = orderService .seckill(user, goods);
         return RespBean.success(order);
+
     }
 }
