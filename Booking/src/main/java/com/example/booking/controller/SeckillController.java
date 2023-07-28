@@ -138,6 +138,20 @@ public class SeckillController implements InitializingBean {
         return RespBean.success(0);  // 0 表示正在排队中
     }
 
+    /**
+     * 获取秒杀结果 *
+     * @param user
+     * @param goodsId
+     * @return orderId:成功， -1：秒杀失败， 0：排队中 */
+    @RequestMapping(value = "/result", method = RequestMethod .GET)
+    @ResponseBody
+    public RespBean getResult(User user, Long goodsId) {
+        if (user == null) {
+            return RespBean.error(RespBeanEnum .SESSION_ERROR);
+        }
+        Long orderId = seckillOrderService .getResult(user, goodsId);
+        return RespBean.success(orderId);
+    }
 
     /**
      * 系统初始化，把商品库存数量加载到Redis *

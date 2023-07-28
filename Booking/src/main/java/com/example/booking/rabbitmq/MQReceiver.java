@@ -30,8 +30,7 @@ public class MQReceiver {
     @RabbitListener(queues = "seckillQueue")
     public void receive(String msg) {
         log.info("QUEUE接受消息： " + msg);
-        SeckillMessage message = JsonUtil.jsonStr2Object(msg,
-                SeckillMessage.class);
+        SeckillMessage message = JsonUtil.jsonStr2Object(msg, SeckillMessage.class);
         Long goodsId = message.getGoodsId();
         User user = message.getUser();
         GoodsVo goods = goodsService.findGoodsVoByGoodsId(goodsId);
@@ -44,8 +43,7 @@ public class MQReceiver {
 //        user.getId()).eq(
 //        "goods_id",
 //        goodsId));
-        String seckillOrderJson = (String)
-                redisTemplate.opsForValue().get("order:" + user.getUserId() + ":" + goodsId);
+        String seckillOrderJson = (String) redisTemplate.opsForValue().get("order:" + user.getUserId() + ":" + goodsId);
         if (!StringUtils.isEmpty(seckillOrderJson)) {
             return;
         }
