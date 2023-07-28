@@ -15,8 +15,8 @@ import com.example.booking.vo.OrderDetailVo;
  * @since 2023-07-07
  */
 public interface IOrderService extends IService<Order> {
-
+// 秒杀
     Order seckill(User user, GoodsVo goods);
-
+// 订单详情
     OrderDetailVo detail(Long orderId);
 }
