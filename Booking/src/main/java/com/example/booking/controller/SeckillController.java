@@ -18,13 +18,16 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
+import org.springframework.data.redis.core.script.RedisScript;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.CollectionUtils;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,6 +46,8 @@ public class SeckillController implements InitializingBean {
     private RedisTemplate redisTemplate;
     @Autowired
     private MQSender mqSender;
+    @Autowired
+    private RedisScript<Long> script;
 
     private Map<Long, Boolean> EmptyStockMap = new HashMap<>();  // map用于内存标记，减少redis的库存访问
 
@@ -104,14 +109,20 @@ public class SeckillController implements InitializingBean {
 
 
     //    以下redis接口优化，预减库存
-    @RequestMapping(value = "/doSeckill", method = RequestMethod.POST)
+
+    @RequestMapping(value = "/{path}/doSeckill" , method = RequestMethod .POST)
     @ResponseBody
-    public RespBean doSeckill(Model model, User user, Long goodsId) {
+    public RespBean doSeckill(@PathVariable String path, User user, Long goodsId) {
         if (user == null) {
             return RespBean.error(RespBeanEnum.SESSION_ERROR);
         }
         // 以下为redis的操作
         ValueOperations valueOperations = redisTemplate.opsForValue();
+        boolean check = orderService .checkPath(user,goodsId,path);
+        if (!check){
+            return RespBean.error(RespBeanEnum .REQUEST_ILLEGAL);
+        }
+
 //判断是否重复抢购
         String seckillOrderJson = (String) valueOperations.get("order:" + user.getUserId() + ":" + goodsId);
         if (!StringUtils.isEmpty(seckillOrderJson)) {
@@ -126,7 +137,9 @@ public class SeckillController implements InitializingBean {
             return RespBean.error(RespBeanEnum.EMPTY_STOCK);
         }
 //预减库存
-        Long stock = valueOperations.decrement("seckillGoods:" + goodsId);
+//        Long stock = valueOperations.decrement("seckillGoods:" + goodsId);
+        Long stock = (Long) redisTemplate .execute(script,
+                            Collections .singletonList("seckillGoods:" + goodsId), Collections.EMPTY_LIST);
         if (stock < 0) {
 //            EmptyStockMap.put(goodsId, true);
             valueOperations.increment("seckillGoods:" + goodsId);
@@ -152,6 +165,24 @@ public class SeckillController implements InitializingBean {
         Long orderId = seckillOrderService .getResult(user, goodsId);
         return RespBean.success(orderId);
     }
+
+    /**
+     * 获取秒杀地址 *
+     * @param user
+     * @param goodsId
+     * @return
+     */
+    @RequestMapping(value = "/path", method = RequestMethod .GET)
+    @ResponseBody
+    public RespBean getPath(User user, Long goodsId) {
+        if (user == null) {
+            return RespBean.error(RespBeanEnum.SESSION_ERROR);
+        }
+        String str = orderService.createPath(user, goodsId);
+        return RespBean.success(str);
+    }
+
+
 
     /**
      * 系统初始化，把商品库存数量加载到Redis *
