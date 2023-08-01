@@ -13,6 +13,8 @@ import com.example.booking.service.IGoodsService;
 import com.example.booking.service.IOrderService;
 import com.example.booking.service.ISeckillGoodsService;
 import com.example.booking.service.ISeckillOrderService;
+import com.example.booking.utils.MD5Util;
+import com.example.booking.utils.UUIDUtil;
 import com.example.booking.vo.GoodsVo;
 import com.example.booking.vo.OrderDetailVo;
 import com.example.booking.vo.RespBeanEnum;
@@ -22,8 +24,10 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 /**
  * <p>
@@ -101,5 +105,22 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         detail.setGoodsVo(goodsVo);
         detail.setOrder(order);
         return detail;
+    }
+//    获取秒杀地址
+
+    @Override
+    public String createPath(User user, Long goodsId) {
+        String str = MD5Util.md5(UUIDUtil.uuid() + "123456");
+        redisTemplate .opsForValue().set("seckillPath:" + user.getUserId() + ":" + goodsId, str, 60, TimeUnit.SECONDS);
+        return str;
+    }
+// 校验秒杀地址
+    @Override
+    public boolean checkPath(User user, Long goodsId, String path) {
+        if (user==null || StringUtils.isEmpty(path)){
+            return false;
+        }
+        String redisPath = (String) redisTemplate .opsForValue().get("seckillPath:" + user.getUserId() + ":" + goodsId);
+        return path.equals(redisPath);
     }
 }
