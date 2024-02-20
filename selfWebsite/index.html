@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Jojo He - Portfolio</title>
+    <link rel="stylesheet" href="./style.css" />
+    <script src="./script.js"></script>
+  </head>
+  <body>
+    <!-- Navigation Bar -->
+    <nav>
+      <div id="home">
+        <div class="profile_name">
+          Jojo He
+          <div class="contact_info">
+            <img
+              src="images/envelope.png"
+              alt="https://icons8.com/icon/124377/circled-envelope"
+            />
+            jiaohelucky@gmail.com
+          </div>
+          <div style="clear: both"></div>
+          <div class="contact_info">
+            <img
+              src="images/phone.png"
+              alt="https://icons8.com/icon/124377/circled-envelope"
+            />
+            +1 6174127936
+          </div>
+        </div>
+        <div class="topdiv">
+          <a class="topmenu" href="#about-me">About Me</a>
+          <!-- Add the links for Skills, Projects and Recommendation here -->
+        </div>
+      </div>
+    </nav>
+
+    <!-- About Me -->
+    <section id="about-me" class="container">
+      <div>
+        <img
+          src="https://miro.medium.com/max/1400/1*qdAW1TjCN57h1lbuuzvchg.gif"
+          class="profile_image"
+        />
+      </div>
+
+      <div>
+        <h1>
+          Hi, I'm Jojo He!
+          <img src="images/welcome.png" width="60px" />
+        </h1>
+        <p>
+          I am a graduate student of Information Systems at Northeastern
+          University. Besides, I am a passionate software engineer with a
+          cross-industry background and keen business background. Years of
+          working experience in product management, project management, and
+          teamwork. Familiar with Java, Python, and other professional
+          programming skills.
+        </p>
+      </div>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills">
+      <h2>Skills</h2>
+      <div style="clear: both"></div>
+
+      <div class="all_skills">
+        <div class="skill">
+          <img src="images/html.png" />
+          <h6>HTML</h6>
+          <p>2 years experience</p>
+        </div>
+
+        <div class="skill">
+          <img src="images/js.png" />
+          <h6>JavaScript</h6>
+          <p>3 years experience</p>
+        </div>
+        <div class="skill">
+          <img src="images/java.png" />
+          <h6>Java</h6>
+          <p>3 years experience</p>
+        </div>
+        <div class="skill">
+          <img src="images/python.png" />
+          <h6>Python</h6>
+          <p>3 years experience</p>
+        </div>
+        <div class="skill">
+          <img src="images/react.png" />
+          <h6>React</h6>
+          <p>3 years experience</p>
+        </div>
+        <div class="skill">
+          <img src="images/nodejs.png" />
+          <h6><Node class="js"></Node></h6>
+          <p>3 years experience</p>
+        </div>
+        <div class="skill">
+          <img src="images/mongodb.png" />
+          <h6>Mongodb</h6>
+          <p>3 years experience</p>
+        </div>
+        <div class="skill">
+          <img src="images/redis.png" />
+          <h6>Redis</h6>
+          <p>3 years experience</p>
+        </div>
+        <div class="skill">
+          <img src="images/mybatis.png" />
+          <h6>Mybatis</h6>
+          <p>3 years experience</p>
+        </div>
+
+        <!-- Add more skills here -->
+      </div>
+    </section>
+
+    <!-- Projects -->
+    <section class="projects" id="projects">
+      <h2>Projects</h2>
+      <div style="clear: both"></div>
+
+      <div id="projects-container" class="projects-container">
+        <div class="project-card">
+          <h3>High Volume Ticketing System</h3>
+          <ul>
+            <li>
+              Developed a ticketing system that can handle high concurrency,
+              supporting features such as user registration, login, and
+              simultaneous ordering and purchasing by multiple users.
+            </li>
+            <li>
+              Designed and developed a MySQL database for maintaining user and
+              ticket information. Developed APIs based on SpringBoot, SpringMVC,
+              and MyBatis to facilitate user interaction with the data (CRUD).
+              Implemented distributed sessions using Redis to ensure user
+              authentication and session management.
+            </li>
+            <li>
+              Utilized a message queue (RabbitMQ) for order queuing and employed
+              caching with Redis to provide quick access to product information
+              and implement rate limiting for high-frequent user requests.
+              Implemented Redis locks to ensure transactional consistency and
+              prevent overselling.
+            </li>
+          </ul>
+        </div>
+        <hr />
+        <div class="project-card">
+          <h3>Twitter Web Services</h3>
+          <ul>
+            <li>
+              Designed and developed a Twitter-like web application for users to
+              post, search posts, and chat with multiple users.
+            </li>
+            <li>
+              Implemented the front-end service using React.js and created
+              independent and reusable components to enhance page loading speed.
+              Leveraged Redux to store App state and improve data loading
+              efficiency.
+            </li>
+            <li>
+              Developed the back-end service using Express.js, enabled data
+              storage with MongoDB Atlas, and incorporated Redis server
+              middleware between front-end and back-end services for caching
+              requests. Implemented request filtering layer to prevent malicious
+              user inputs.
+            </li>
+            <li>
+              Containerized services using Docker and pushed images to Docker
+              Hub. Wrote deployment YAML files for each service on local
+              Kubernetes to enable load-balancing and horizontal auto-scaling.
+            </li>
+            <li>
+              Created EKS on AWS for each service and implemented service
+              monitoring using the Metrics Server.
+            </li>
+          </ul>
+        </div>
+        <hr />
+      </div>
+    </section>
+    <div style="clear: both"></div>
+
+    <!-- Recommendations -->
+    <section id="recommendations">
+      <h2>Update Everyday</h2>
+      <div style="clear: both"></div>
+      <div class="all_recommendations" id="all_recommendations">
+        <div class="recommendation">
+          <span>&#8220;</span>
+          To reach my goals, to setup a plan!!!
+          <span>&#8221;</span>
+        </div>
+        <div class="recommendation">
+          <span>&#8220;</span>
+          Happy happy day.
+          <span>&#8221;</span>
+        </div>
+        <div class="recommendation">
+          <span>&#8220;</span>
+          I feel happy when I made some progress!
+          <span>&#8221;</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Recommendation Form -->
+    <section id="contact">
+      <div class="flex_center">
+        <fieldset>
+          <legend class="introduction">Leave a message everyday</legend>
+          <input type="text" placeholder="Name (Optional)" /> <br />
+          <textarea
+            id="new_recommendation"
+            cols="500"
+            rows="10"
+            placeholder="Message"
+          ></textarea>
+          <div class="flex_center">
+            <button id="recommend_btn" onclick="addRecommendation()">
+              Submit
+            </button>
+          </div>
+        </fieldset>
+      </div>
+    </section>
+
+    <div class="iconbutton">
+      <a href="#home">
+        <!--Add the code here for the logo to appear and the icon to be actionable-->
+      </a>
+    </div>
+
+    <div class="popup" id="popup" class="flex_center">
+      <img src="html_finalprojimages/checkmark--outline.svg" />
+      <h3><!-- Add appropriate text here--></h3>
+      <button onclick="showPopup(false)">Ok</button>
+    </div>
+  </body>
+</html>
